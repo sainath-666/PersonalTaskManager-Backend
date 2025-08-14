@@ -2,6 +2,9 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using PersonalTaskManager.Data;
 using System.Text;
+using Microsoft.Extensions.FileProviders; // add at top if missing
+using System.IO;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -43,8 +46,16 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
+
+
+
+
 // Register repositories
 //builder.Services.AddScoped<TaskRepository>(); // your existing one
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<CartRepository>();
+
 builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 
@@ -81,6 +92,8 @@ app.UseSwagger();
 app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
+
+
 
 app.UseCors("AllowAngular");
 
