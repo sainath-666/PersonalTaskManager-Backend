@@ -22,7 +22,7 @@ namespace PersonalTaskManager.Controllers
         public IActionResult Login([FromBody] LoginModel login)
         {
             // For demo: hardcoded user. Replace with DB check as needed.
-            if (login.Username == "test" && login.Password == "test")
+            if (login.Username == "test" && login.Password == "test123")
             {
                 var token = GenerateJwtToken(login.Username);
                 return Ok(new { token });
