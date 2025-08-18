@@ -93,7 +93,16 @@ app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 
+// Serve static files from wwwroot (default)
+app.UseStaticFiles();
 
+// Serve static files from the "Uploads" folder
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(
+        Path.Combine(app.Environment.ContentRootPath, "Uploads")),
+    RequestPath = "/uploads"
+});
 
 app.UseCors("AllowAngular");
 
